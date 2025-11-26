@@ -7,7 +7,7 @@ interface PackageProps {
   description: string
   recipientId: UniqueEntityID
   courierId: UniqueEntityID
-  status?: string
+  status: string
   createdAt: Date
   updatedAt?: Date | null
 }
@@ -19,6 +19,11 @@ export class Package extends Entity<PackageProps> {
 
   get description() {
     return this.props.description
+  }
+
+  set description(description: string) {
+    this.props.description = description
+    this.touch()
   }
 
   get recipientId() {
@@ -33,12 +38,21 @@ export class Package extends Entity<PackageProps> {
     return this.props.status
   }
 
+  set status(status: string) {
+    this.props.status = status
+    this.touch()
+  }
+
   get createdAt() {
     return this.props.createdAt
   }
 
   get updatedAt() {
     return this.props.updatedAt
+  }
+
+  private touch() {
+    this.props.updatedAt = new Date()
   }
 
   static create(

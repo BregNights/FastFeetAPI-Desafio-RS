@@ -15,6 +15,11 @@ export class Courier extends Entity<CourierProps> {
     return this.props.name
   }
 
+  set name(name: string) {
+    this.props.name = name
+    this.touch()
+  }
+
   get cpf() {
     return this.props.cpf
   }
@@ -29,6 +34,10 @@ export class Courier extends Entity<CourierProps> {
 
   get updatedAt() {
     return this.props.updatedAt
+  }
+
+  private touch() {
+    this.props.updatedAt = new Date()
   }
 
   static create(

@@ -5,8 +5,8 @@ import { Optional } from "@/core/types/optional"
 interface RecipientProps {
   name: string
   cpf: string
-  phone: string
-  email: string
+  phone?: string |null
+  email?: string | null
   address: string
   latitude: number
   longitude: number
