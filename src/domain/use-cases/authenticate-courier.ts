@@ -3,12 +3,17 @@ import { Encrypter } from "../cryptography/encrypter"
 import { HashComparer } from "../cryptography/hash-comparer"
 import { CouriersRepository } from "../repositories/couriers-repository"
 import { WrongCredentialsError } from "./errors/wrong-credentials-error"
+import { Courier } from "../entities/courier"
 
-interface AuthenticateCourierUseCaseRequest {
-  email: string
-  //   cpf: string
-  password: string
-}
+type AuthenticateCourierUseCaseRequest =
+  | {
+      email: string
+      password: string
+    }
+  | {
+      cpf: string
+      password: string
+    }
 
 type AuthenticateCourierUseCaseResponse = Either<
   WrongCredentialsError,
@@ -24,24 +29,29 @@ export class AuthenticateCourierUseCase {
     private encrypter: Encrypter
   ) {}
 
-  async execute({
-    email,
-    password,
-  }: AuthenticateCourierUseCaseRequest): Promise<AuthenticateCourierUseCaseResponse> {
-    const courier = await this.couriersRepository.findByEmail(email)
+  async execute(
+    request: AuthenticateCourierUseCaseRequest
+  ): Promise<AuthenticateCourierUseCaseResponse> {
+    let courier: Courier | null = null
+
+    if ("email" in request) {
+      courier = await this.couriersRepository.findByEmail(request.email)
+    }
+
+    if ("cpf" in request) {
+      courier = await this.couriersRepository.findByCPF(request.cpf)
+    }
 
     if (!courier) {
       return left(new WrongCredentialsError())
     }
 
-    console.log(password, courier.password)
-
-    const isPassworldValid = await this.hashComparer.compare(
-      password,
+    const isPasswordValid = await this.hashComparer.compare(
+      request.password,
       courier.password
     )
 
-    if (!isPassworldValid) {
+    if (!isPasswordValid) {
       return left(new WrongCredentialsError())
     }
 
