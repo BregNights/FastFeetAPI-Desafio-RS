@@ -26,6 +26,6 @@ describe("Create Recipient", () => {
       packageId: "2",
     })
 
-    expect(result.recipient).toBeTruthy()
+    expect(result.isRight()).toBe(true)
   })
 })

@@ -1,3 +1,4 @@
+import { Either, right } from "@/core/either"
 import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 import { Package } from "../entities/package"
 import { PackagesRepository } from "../repositories/packages-repository"
@@ -9,9 +10,12 @@ interface RegisterPackageUseCaseRequest {
   courierId: string
 }
 
-interface RegisterPackageUseCaseResponse {
-  pkg: Package
-}
+type RegisterPackageUseCaseResponse = Either<
+  null,
+  {
+    pkg: Package
+  }
+>
 
 export class RegisterPackageUseCase {
   constructor(private packagesRepository: PackagesRepository) {}
@@ -31,6 +35,6 @@ export class RegisterPackageUseCase {
 
     await this.packagesRepository.create(pkg)
 
-    return { pkg }
+    return right({ pkg })
   }
 }

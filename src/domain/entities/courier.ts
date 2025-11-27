@@ -2,10 +2,11 @@ import { Entity } from "@/core/entities/entity"
 import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 import { Optional } from "@/core/types/optional"
 
-interface CourierProps {
+export interface CourierProps {
   name: string
   cpf: string
   email: string
+  password: string
   createdAt: Date
   updatedAt?: Date | null
 }
@@ -26,6 +27,10 @@ export class Courier extends Entity<CourierProps> {
 
   get email() {
     return this.props.email
+  }
+
+  get password() {
+    return this.props.password
   }
 
   get createdAt() {

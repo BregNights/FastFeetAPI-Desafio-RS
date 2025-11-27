@@ -2,4 +2,6 @@ import { Courier } from "../entities/courier"
 
 export interface CouriersRepository {
   create(courier: Courier): Promise<void>
+  findByEmail(email: string): Promise<Courier | null>
+  findByCPF(cpf: string): Promise<Courier | null>
 }

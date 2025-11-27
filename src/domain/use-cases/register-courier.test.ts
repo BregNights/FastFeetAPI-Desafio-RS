@@ -10,13 +10,14 @@ describe("Create Courier", () => {
     sut = new RegisterCourierUseCase(inMemoryCouriersRepository)
   })
 
-  it("sliuld be able register a courier", async () => {
+  it("slould be able register a new courier", async () => {
     const result = await sut.execute({
       name: "example",
       cpf: "123;456;789-00",
       email: "example@example.com",
+      password: "123",
     })
 
-    expect(result.courier.name).toEqual("example")
+    expect(result.isRight()).toBe(true)
   })
 })

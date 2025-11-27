@@ -22,6 +22,6 @@ describe("Create Package", () => {
       trackingCode: randomUUID(),
     })
 
-    expect(result.pkg).toBeTruthy()
+    expect(result.isRight()).toBe(true)
   })
 })

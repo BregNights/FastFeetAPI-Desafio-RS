@@ -1,3 +1,4 @@
+import { Either, right } from "@/core/either"
 import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 import { Recipient } from "../entities/recipient"
 import { RecipientsRepository } from "../repositories/recipients-repository"
@@ -14,9 +15,12 @@ interface RegisterRecipientUseCaseRequest {
   courierId: string
 }
 
-interface RegisterRecipientUseCaseResponse {
-  recipient: Recipient
-}
+type RegisterRecipientUseCaseResponse = Either<
+  null,
+  {
+    recipient: Recipient
+  }
+>
 
 export class RegisterRecipientUseCase {
   constructor(private recipientRepository: RecipientsRepository) {}
@@ -46,6 +50,6 @@ export class RegisterRecipientUseCase {
 
     await this.recipientRepository.create(recipient)
 
-    return { recipient }
+    return right({ recipient })
   }
 }

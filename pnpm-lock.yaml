@@ -51,6 +51,9 @@ importers:
         specifier: ^5.0.0
         version: 5.0.0(zod@4.1.13)
     devDependencies:
+      '@faker-js/faker':
+        specifier: ^10.1.0
+        version: 10.1.0
       '@nestjs/cli':
         specifier: ^11.0.0
         version: 11.0.12(@types/node@22.19.1)
@@ -298,6 +301,10 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@faker-js/faker@10.1.0':
+    resolution: {integrity: sha512-C3mrr3b5dRVlKPJdfrAXS8+dq+rq8Qm5SNRazca0JKgw1HQERFmrVb0towvMmw5uu8hHKNiQasMaR/tydf3Zsg==}
+    engines: {node: ^20.19.0 || ^22.13.0 || ^23.5.0 || >=24.0.0, npm: '>=10'}
 
   '@inquirer/ansi@1.0.2':
     resolution: {integrity: sha512-S8qNSZiYzFd0wAcyG5AXCvUHC5Sr7xpZ9wZ2py9XR88jUz8wooStVx5M6dRzczbBWjic9NP7+rY0Xi7qqK/aMQ==}
@@ -2440,6 +2447,8 @@ snapshots:
 
   '@esbuild/win32-x64@0.25.12':
     optional: true
+
+  '@faker-js/faker@10.1.0': {}
 
   '@inquirer/ansi@1.0.2': {}
 
