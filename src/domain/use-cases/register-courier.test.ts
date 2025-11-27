@@ -10,7 +10,7 @@ describe("Create Courier", () => {
     sut = new RegisterCourierUseCase(inMemoryCouriersRepository)
   })
 
-  it("slould be able register a new courier", async () => {
+  it("should be able register a new courier", async () => {
     const result = await sut.execute({
       name: "example",
       cpf: "123;456;789-00",

@@ -9,7 +9,7 @@ export enum PackageStatus {
   RETURNED = "RETURNED",
 }
 
-interface ExpeditionProps {
+export interface ExpeditionProps {
   packageId: UniqueEntityID
   status: PackageStatus
   timestamp?: Date | null

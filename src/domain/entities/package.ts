@@ -3,7 +3,7 @@ import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 import { Optional } from "@/core/types/optional"
 import { PackageStatus } from "./expedition"
 
-interface PackageProps {
+export interface PackageProps {
   trackingCode: string
   description: string
   recipientId: UniqueEntityID
