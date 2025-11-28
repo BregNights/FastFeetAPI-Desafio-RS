@@ -1,5 +1,8 @@
 import { UniqueEntityID } from "@/core/entities/unique-entity-id"
-import { Package, PackageProps } from "@/domain/entities/package"
+import {
+  Package,
+  PackageProps,
+} from "@/domain/carrier/enterprise/entities/package"
 import { faker } from "@faker-js/faker"
 
 export function makePackage(

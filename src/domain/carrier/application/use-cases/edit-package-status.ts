@@ -1,7 +1,7 @@
 import { Either, left, right } from "@/core/either"
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
-import { PackageStatus } from "../entities/expedition"
-import { Package } from "../entities/package"
+import { PackageStatus } from "../../enterprise/entities/expedition"
+import { Package } from "../../enterprise/entities/package"
 import { PackagesRepository } from "../repositories/packages-repository"
 
 interface EditPackageStatusUseCaseRequest {

@@ -1,4 +1,4 @@
-import { Courier } from "../entities/courier"
+import { Courier } from "../../enterprise/entities/courier"
 
 export interface CouriersRepository {
   create(courier: Courier): Promise<void>

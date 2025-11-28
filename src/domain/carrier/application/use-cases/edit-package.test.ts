@@ -1,14 +1,19 @@
 import { makePackage } from "test/factories/make-package"
 import { InMemoryPackagesRepository } from "test/repositories/in-memory-packages-repository"
-import { PackageStatus } from "../entities/expedition"
+import { InMemoryRecipientsRepository } from "test/repositories/in-memory-recipients-repository"
+import { PackageStatus } from "../../enterprise/entities/expedition"
 import { EditPackageUseCase } from "./edit-package"
 
 let inMemoryPackagesRepository: InMemoryPackagesRepository
+let inMemoryRecipientsRepository: InMemoryRecipientsRepository
 let sut: EditPackageUseCase
 
 describe("Edit Package", () => {
   beforeEach(() => {
-    inMemoryPackagesRepository = new InMemoryPackagesRepository()
+    inMemoryRecipientsRepository = new InMemoryRecipientsRepository()
+    inMemoryPackagesRepository = new InMemoryPackagesRepository(
+      inMemoryRecipientsRepository
+    )
     sut = new EditPackageUseCase(inMemoryPackagesRepository)
   })
 

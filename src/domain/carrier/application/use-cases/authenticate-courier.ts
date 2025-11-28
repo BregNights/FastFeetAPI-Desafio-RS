@@ -1,7 +1,7 @@
 import { Either, left, right } from "@/core/either"
+import { Courier } from "../../enterprise/entities/courier"
 import { Encrypter } from "../cryptography/encrypter"
 import { HashComparer } from "../cryptography/hash-comparer"
-import { Courier } from "../entities/courier"
 import { CouriersRepository } from "../repositories/couriers-repository"
 import { WrongCredentialsError } from "./errors/wrong-credentials-error"
 

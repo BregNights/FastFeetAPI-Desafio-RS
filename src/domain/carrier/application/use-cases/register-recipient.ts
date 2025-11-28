@@ -1,6 +1,5 @@
 import { Either, right } from "@/core/either"
-import { UniqueEntityID } from "@/core/entities/unique-entity-id"
-import { Recipient } from "../entities/recipient"
+import { Recipient } from "../../enterprise/entities/recipient"
 import { RecipientsRepository } from "../repositories/recipients-repository"
 
 interface RegisterRecipientUseCaseRequest {
@@ -11,8 +10,6 @@ interface RegisterRecipientUseCaseRequest {
   address: string
   latitude: number
   longitude: number
-  packageId: string
-  courierId: string
 }
 
 type RegisterRecipientUseCaseResponse = Either<
@@ -33,8 +30,6 @@ export class RegisterRecipientUseCase {
     address,
     latitude,
     longitude,
-    packageId,
-    courierId,
   }: RegisterRecipientUseCaseRequest): Promise<RegisterRecipientUseCaseResponse> {
     const recipient = Recipient.create({
       name,
@@ -44,8 +39,6 @@ export class RegisterRecipientUseCase {
       address,
       latitude,
       longitude,
-      packageId: new UniqueEntityID(packageId),
-      courierId: new UniqueEntityID(courierId),
     })
 
     await this.recipientRepository.create(recipient)

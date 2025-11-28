@@ -19,8 +19,6 @@ describe("Create Recipient", () => {
       latitude: 0,
       longitude: 0,
       phone: "123123123",
-      courierId: "1",
-      packageId: "2",
     })
 
     expect(result.isRight()).toBe(true)

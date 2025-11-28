@@ -12,8 +12,6 @@ export interface RecipientProps {
   longitude: number
   createdAt: Date
   updatedAt?: Date | null
-  packageId: UniqueEntityID
-  courierId: UniqueEntityID
 }
 
 export class Recipient extends Entity<RecipientProps> {
@@ -51,14 +49,6 @@ export class Recipient extends Entity<RecipientProps> {
 
   get updatedAt() {
     return this.props.updatedAt
-  }
-
-  get packageId() {
-    return this.props.packageId
-  }
-
-  get courierId() {
-    return this.props.courierId
   }
 
   static create(

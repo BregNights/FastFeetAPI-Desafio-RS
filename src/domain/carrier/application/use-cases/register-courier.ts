@@ -1,6 +1,6 @@
 import { Either, left, right } from "@/core/either"
+import { Courier } from "../../enterprise/entities/courier"
 import { HashGenerator } from "../cryptography/hash-generator"
-import { Courier } from "../entities/courier"
 import { CouriersRepository } from "../repositories/couriers-repository"
 import { CourierAlreadyExistsError } from "./errors/courier-already-exists-error"
 

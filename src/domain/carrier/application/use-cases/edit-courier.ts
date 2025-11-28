@@ -1,7 +1,7 @@
 import { Either, left, right } from "@/core/either"
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
+import { Courier, CourierProps } from "../../enterprise/entities/courier"
 import { HashGenerator } from "../cryptography/hash-generator"
-import { Courier, CourierProps } from "../entities/courier"
 import { CouriersRepository } from "../repositories/couriers-repository"
 
 interface EditCourierUseCaseRequest {

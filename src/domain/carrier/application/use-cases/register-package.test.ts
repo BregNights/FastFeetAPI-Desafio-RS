@@ -1,13 +1,18 @@
 import { randomUUID } from "node:crypto"
 import { InMemoryPackagesRepository } from "test/repositories/in-memory-packages-repository"
+import { InMemoryRecipientsRepository } from "test/repositories/in-memory-recipients-repository"
 import { RegisterPackageUseCase } from "./register-package"
 
 let inMemoryPackagesRepository: InMemoryPackagesRepository
+let inMemoryRecipientsRepository: InMemoryRecipientsRepository
 let sut: RegisterPackageUseCase
 
 describe("Create Package", () => {
   beforeEach(() => {
-    inMemoryPackagesRepository = new InMemoryPackagesRepository()
+    inMemoryRecipientsRepository = new InMemoryRecipientsRepository()
+    inMemoryPackagesRepository = new InMemoryPackagesRepository(
+      inMemoryRecipientsRepository
+    )
     sut = new RegisterPackageUseCase(inMemoryPackagesRepository)
   })
 
