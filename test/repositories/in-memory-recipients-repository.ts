@@ -1,4 +1,8 @@
-import { RecipientsRepository } from "@/domain/carrier/application/repositories/recipients-repository"
+import {
+  FindManyNearbyParams,
+  RecipientsRepository,
+} from "@/domain/carrier/application/repositories/recipients-repository"
+import { getDistanceBetweenCoordinates } from "@/domain/carrier/application/utils/get-distance-between-coordinates"
 import { Recipient } from "@/domain/carrier/enterprise/entities/recipient"
 
 export class InMemoryRecipientsRepository implements RecipientsRepository {
@@ -6,5 +10,21 @@ export class InMemoryRecipientsRepository implements RecipientsRepository {
 
   async create(recipient: Recipient): Promise<void> {
     this.items.push(recipient)
+  }
+
+  async findManyNearby(params: FindManyNearbyParams) {
+    return this.items.filter((item) => {
+      const distance = getDistanceBetweenCoordinates(
+        { latitude: params.latitude, longitude: params.longitude },
+        {
+          latitude: item.latitude,
+          longitude: item.longitude,
+        }
+      )
+
+      const MAX_DISTANCE_RECIPIENTS_IN_KILOMITERS = 10 //10KM
+
+      return distance < MAX_DISTANCE_RECIPIENTS_IN_KILOMITERS
+    })
   }
 }

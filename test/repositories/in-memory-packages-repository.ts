@@ -26,8 +26,6 @@ export class InMemoryPackagesRepository implements PackagesRepository {
       return recipient.id.equals(pkg?.recipientId)
     })
 
-    console.log(pkg.recipientId.toString())
-
     if (!recipient) {
       throw new Error(
         `recipient with ID "${pkg.recipientId.toString()}" does not exist.`
