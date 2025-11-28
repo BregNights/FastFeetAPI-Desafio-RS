@@ -1,13 +1,16 @@
+import { FakeHasher } from "test/cryptography/fake-hasher"
 import { InMemoryCouriersRepository } from "test/repositories/in-memory-couriers-repository"
 import { RegisterCourierUseCase } from "./register-courier"
 
 let inMemoryCouriersRepository: InMemoryCouriersRepository
+let fakeHasher: FakeHasher
 let sut: RegisterCourierUseCase
 
 describe("Create Courier", () => {
   beforeEach(() => {
     inMemoryCouriersRepository = new InMemoryCouriersRepository()
-    sut = new RegisterCourierUseCase(inMemoryCouriersRepository)
+    fakeHasher = new FakeHasher()
+    sut = new RegisterCourierUseCase(inMemoryCouriersRepository, fakeHasher)
   })
 
   it("should be able register a new courier", async () => {

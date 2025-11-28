@@ -1,4 +1,5 @@
 import { Either, left, right } from "@/core/either"
+import { HashGenerator } from "../cryptography/hash-generator"
 import { Courier } from "../entities/courier"
 import { CouriersRepository } from "../repositories/couriers-repository"
 import { CourierAlreadyExistsError } from "./errors/courier-already-exists-error"
@@ -18,7 +19,10 @@ type RegisterCourierUseCaseResponse = Either<
 >
 
 export class RegisterCourierUseCase {
-  constructor(private couriersRepository: CouriersRepository) {}
+  constructor(
+    private couriersRepository: CouriersRepository,
+    private hashGenerator: HashGenerator
+  ) {}
 
   async execute({
     name,
@@ -27,18 +31,19 @@ export class RegisterCourierUseCase {
     password,
   }: RegisterCourierUseCaseRequest): Promise<RegisterCourierUseCaseResponse> {
     const userWithSameEmail = await this.couriersRepository.findByEmail(email)
-
-    if (userWithSameEmail) {
-      return left(new CourierAlreadyExistsError(email))
-    }
+    if (userWithSameEmail) return left(new CourierAlreadyExistsError(email))
 
     const userWithSameCPF = await this.couriersRepository.findByCPF(cpf)
+    if (userWithSameCPF) throw left(new CourierAlreadyExistsError(cpf))
 
-    if (userWithSameCPF) {
-      throw left(new CourierAlreadyExistsError(cpf))
-    }
+    const hashedPassword = await this.hashGenerator.hash(password)
 
-    const courier = Courier.create({ name, cpf, email, password })
+    const courier = Courier.create({
+      name,
+      cpf,
+      email,
+      password: hashedPassword,
+    })
 
     await this.couriersRepository.create(courier)
 

@@ -29,8 +29,18 @@ export class Courier extends Entity<CourierProps> {
     return this.props.email
   }
 
+  set email(email: string) {
+    this.props.email = email
+    this.touch()
+  }
+
   get password() {
     return this.props.password
+  }
+
+  set password(password: string) {
+    this.props.password = password
+    this.touch()
   }
 
   get createdAt() {

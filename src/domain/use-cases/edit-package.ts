@@ -1,32 +1,32 @@
 import { Either, left, right } from "@/core/either"
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
-import { PackageStatus } from "../entities/expedition"
-import { Package } from "../entities/package"
+import { Package, PackageProps } from "../entities/package"
 import { PackagesRepository } from "../repositories/packages-repository"
 
-interface EditPackageStatusUseCaseRequest {
+interface EditPackageUseCaseRequest {
   packageId: string
-  status: PackageStatus
+  data: Partial<Pick<PackageProps, "description" | "status">>
 }
 
-type EditPackageStatusUseCaseResponse = Either<
+type EditPackageUseCaseResponse = Either<
   ResourceNotFoundError,
   {
     pkg: Package
   }
 >
 
-export class EditPackageStatusUseCase {
+export class EditPackageUseCase {
   constructor(private packagesRepository: PackagesRepository) {}
 
   async execute({
     packageId,
-    status,
-  }: EditPackageStatusUseCaseRequest): Promise<EditPackageStatusUseCaseResponse> {
+    data,
+  }: EditPackageUseCaseRequest): Promise<EditPackageUseCaseResponse> {
     const pkg = await this.packagesRepository.findById(packageId)
     if (!pkg) return left(new ResourceNotFoundError())
 
-    pkg.status = status
+    if (data.description) pkg.description = data.description
+    if (data.status) pkg.status = data.status
 
     await this.packagesRepository.save(pkg)
 

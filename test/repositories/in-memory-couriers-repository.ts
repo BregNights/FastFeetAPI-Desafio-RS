@@ -19,4 +19,16 @@ export class InMemoryCouriersRepository implements CouriersRepository {
 
     return courier || null
   }
+
+  async findById(id: string): Promise<Courier | null> {
+    const courier = this.items.find((item) => item.id.toString() === id)
+
+    return courier || null
+  }
+
+  async save(courier: Courier): Promise<void> {
+    const itemIndex = this.items.findIndex((item) => item.id === courier.id)
+
+    this.items[itemIndex] = courier
+  }
 }

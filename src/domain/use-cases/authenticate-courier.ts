@@ -1,9 +1,9 @@
 import { Either, left, right } from "@/core/either"
 import { Encrypter } from "../cryptography/encrypter"
 import { HashComparer } from "../cryptography/hash-comparer"
+import { Courier } from "../entities/courier"
 import { CouriersRepository } from "../repositories/couriers-repository"
 import { WrongCredentialsError } from "./errors/wrong-credentials-error"
-import { Courier } from "../entities/courier"
 
 type AuthenticateCourierUseCaseRequest =
   | {
@@ -42,18 +42,14 @@ export class AuthenticateCourierUseCase {
       courier = await this.couriersRepository.findByCPF(request.cpf)
     }
 
-    if (!courier) {
-      return left(new WrongCredentialsError())
-    }
+    if (!courier) return left(new WrongCredentialsError())
 
     const isPasswordValid = await this.hashComparer.compare(
       request.password,
       courier.password
     )
 
-    if (!isPasswordValid) {
-      return left(new WrongCredentialsError())
-    }
+    if (!isPasswordValid) return left(new WrongCredentialsError())
 
     const accessToken = await this.encrypter.encrypt({
       sub: courier.id.toString(),
