@@ -1,3 +1,4 @@
+import { Either, right } from "@/core/either"
 import { Recipient } from "../../enterprise/entities/recipient"
 import { RecipientsRepository } from "../repositories/recipients-repository"
 
@@ -6,9 +7,12 @@ interface FetchNearbyRecipientsUseCaseRequest {
   courierLongitude: number
 }
 
-interface FetchNearbyRecipientsUseCaseResponse {
-  recipients: Recipient[]
-}
+type FetchNearbyRecipientsUseCaseResponse = Either<
+  null,
+  {
+    recipients: Recipient[]
+  }
+>
 
 export class FetchNearbyRecipientsUseCase {
   constructor(private recipientsRepository: RecipientsRepository) {}
@@ -22,6 +26,6 @@ export class FetchNearbyRecipientsUseCase {
       longitude: courierLongitude,
     })
 
-    return { recipients }
+    return right({ recipients })
   }
 }

@@ -28,13 +28,13 @@ describe("Fetch Nearby Recipients Use Case", () => {
 
     inMemoryRecipientsRepository.items.push(recipientFar)
 
-    const { recipients } = await sut.execute({
+    const result = await sut.execute({
       courierLatitude: -26.8471511,
       courierLongitude: -49.0896057,
     })
 
-    expect(recipients).toHaveLength(1)
-    expect(recipients).toEqual([
+    expect(result.value?.recipients).toHaveLength(1)
+    expect(result.value?.recipients).toEqual([
       expect.objectContaining({ name: "Near Recipient" }),
     ])
   })
