@@ -1,4 +1,4 @@
-import { Entity } from "@/core/entities/entity"
+import { AggregateRoot } from "@/core/entities/aggregate-root"
 import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 import { Optional } from "@/core/types/optional"
 
@@ -19,7 +19,7 @@ export interface PackageProps {
   updatedAt?: Date | null
 }
 
-export class Package extends Entity<PackageProps> {
+export class Package extends AggregateRoot<PackageProps> {
   get trackingCode() {
     return this.props.trackingCode
   }

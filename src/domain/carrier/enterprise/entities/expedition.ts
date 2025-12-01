@@ -1,4 +1,4 @@
-// import { Entity } from "@/core/entities/entity"
+// import { AggregateRoot } from "@/core/entities/aggregate-root"
 // import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 // import { Optional } from "@/core/types/optional"
 
@@ -15,7 +15,7 @@
 //   timestamp?: Date | null
 // }
 
-// export class Expedition extends Entity<ExpeditionProps> {
+// export class Expedition extends AggregateRoot<ExpeditionProps> {
 //   get packageId() {
 //     return this.props.packageId
 //   }

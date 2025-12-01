@@ -1,4 +1,4 @@
-import { Entity } from "@/core/entities/entity"
+import { AggregateRoot } from "@/core/entities/aggregate-root"
 import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 import { Optional } from "@/core/types/optional"
 
@@ -11,7 +11,7 @@ export interface CourierProps {
   updatedAt?: Date | null
 }
 
-export class Courier extends Entity<CourierProps> {
+export class Courier extends AggregateRoot<CourierProps> {
   get name() {
     return this.props.name
   }

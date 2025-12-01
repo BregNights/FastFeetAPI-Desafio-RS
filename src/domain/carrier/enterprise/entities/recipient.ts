@@ -1,4 +1,4 @@
-import { Entity } from "@/core/entities/entity"
+import { AggregateRoot } from "@/core/entities/aggregate-root"
 import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 import { Optional } from "@/core/types/optional"
 
@@ -14,7 +14,7 @@ export interface RecipientProps {
   updatedAt?: Date | null
 }
 
-export class Recipient extends Entity<RecipientProps> {
+export class Recipient extends AggregateRoot<RecipientProps> {
   get name() {
     return this.props.name
   }
