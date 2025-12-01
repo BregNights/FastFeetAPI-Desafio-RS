@@ -5,6 +5,7 @@ import { InMemoryRecipientsRepository } from "./in-memory-recipients-repository"
 
 export class InMemoryPackagesRepository implements PackagesRepository {
   constructor(private recipientsRepository: InMemoryRecipientsRepository) {}
+
   public items: Package[] = []
 
   async create(pkg: Package): Promise<void> {
@@ -45,6 +46,12 @@ export class InMemoryPackagesRepository implements PackagesRepository {
       createdAt: pkg.createdAt,
       updatedAt: pkg.updatedAt,
     })
+  }
+
+  async findManyPackages(page: number): Promise<Package[]> {
+    const pkg = this.items.slice((page - 1) * 20, page * 20)
+
+    return pkg
   }
 
   async save(pkg: Package): Promise<void> {
