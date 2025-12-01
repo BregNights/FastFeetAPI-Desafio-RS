@@ -5,7 +5,7 @@ import { FetchNearbyRecipientsUseCase } from "./fetch-nearby-recipients"
 let inMemoryRecipientsRepository: InMemoryRecipientsRepository
 let sut: FetchNearbyRecipientsUseCase
 
-describe("Fetch NHearby Recipients Use Case", () => {
+describe("Fetch Nearby Recipients Use Case", () => {
   beforeEach(() => {
     inMemoryRecipientsRepository = new InMemoryRecipientsRepository()
     sut = new FetchNearbyRecipientsUseCase(inMemoryRecipientsRepository)
