@@ -3,7 +3,10 @@ import {
   Courier,
   CourierProps,
 } from "@/domain/carrier/enterprise/entities/courier"
+import { PrismaService } from "@/infra/database/prisma/prisma.service"
+import { PrismaCourierMapper } from "@/infra/http/database/prisma/mappers/prisma-courier-mapper"
 import { faker } from "@faker-js/faker"
+import { Injectable } from "@nestjs/common"
 
 export function makeCourier(
   override: Partial<CourierProps> = {},
@@ -21,4 +24,19 @@ export function makeCourier(
   )
 
   return courier
+}
+
+@Injectable()
+export class CourierFactory {
+  constructor(private prisma: PrismaService) {}
+
+  async makePrismaCourier(data: Partial<CourierProps> = {}): Promise<Courier> {
+    const courier = makeCourier(data)
+
+    await this.prisma.user.create({
+      data: PrismaCourierMapper.toPrisma(courier),
+    })
+
+    return courier
+  }
 }
