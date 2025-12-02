@@ -2,13 +2,14 @@
 @authToken = {{authenticate.response.body.access_token}}
 
 # @name create_account
-POST {{baseUrl}}/users
+POST {{baseUrl}}/accounts
 Content-Type: application/json
 
 {
-    "name": "Example",
-    "cpf":"123.456.789-00",
-    "email": "example3@mail.com",
+    "name": "admin",
+    "cpf":"123.456.789-02",
+    "email": "admin2@admin.com",
+    "role": "ADMIN",
     "password": "123456"
 }
 
@@ -19,7 +20,7 @@ POST {{baseUrl}}/sessions
 Content-Type: application/json
 
 {
-    "cpf":"123.456.789-00",
+    "cpf":"123.456.789-01",
     "password": "123456"
 }
 
