@@ -19,27 +19,34 @@ POST {{baseUrl}}/sessions
 Content-Type: application/json
 
 {
-    "email": "example1@mail.com",
+    "cpf":"123.456.789-00",
     "password": "123456"
 }
 
 ###
 
-# @name create_question
-POST {{baseUrl}}/questions
+# @name create_recipient
+POST {{baseUrl}}/recipients
 Content-Type: application/json
-Authorization: Bearer {{authToken}}
 
 {
-    "title": "Nova pergunta 3",
-    "content": "Conteúdo da pergunta 3"
+    "name": "John Doe",
+    "cpf": "123.456.789-00",
+    "phone": "4799999-9999",
+    "email": "johndoe@example.com",
+    "address": "Address example",
+    "latitude": 0,
+    "longitude": 0
 }
 
 ###
 
-# @name fetch_recent_question
-GET  {{baseUrl}}/questions?page=1
+# @name create_package
+POST {{baseUrl}}/packages
 Content-Type: application/json
-Authorization: Bearer {{authToken}}
+
+{
+    
+}
 
 ###

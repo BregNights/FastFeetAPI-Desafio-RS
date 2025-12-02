@@ -8,6 +8,7 @@ import { PrismaCourierMapper } from "../mappers/prisma-courier-mapper"
 @Injectable()
 export class PrismaCouriersRepository implements CouriersRepository {
   constructor(private prisma: PrismaService) {}
+
   async findByEmail(email: string): Promise<Courier | null> {
     const courier = await this.prisma.user.findUnique({ where: { email } })
 
@@ -19,11 +20,13 @@ export class PrismaCouriersRepository implements CouriersRepository {
 
     return courier ? PrismaCourierMapper.toDomain(courier) : null
   }
+
   async findById(id: string): Promise<Courier | null> {
     const courier = await this.prisma.user.findUnique({ where: { id } })
 
     return courier ? PrismaCourierMapper.toDomain(courier) : null
   }
+
   async findManyCouriers(page: number): Promise<Courier[]> {
     const couriers = await this.prisma.user.findMany({
       take: 20,
@@ -32,6 +35,7 @@ export class PrismaCouriersRepository implements CouriersRepository {
 
     return couriers.map(PrismaCourierMapper.toDomain)
   }
+
   async save(courier: Courier): Promise<void> {
     const data = PrismaCourierMapper.toPrisma(courier)
 

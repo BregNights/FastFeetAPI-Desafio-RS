@@ -5,10 +5,10 @@ export interface FindManyNearbyParams {
   longitude: number
 }
 
-export interface RecipientsRepository {
-  create(recipient: Recipient): Promise<void>
-  findById(id: string): Promise<Recipient | null>
-  findManyNearby(params: FindManyNearbyParams): Promise<Recipient[]>
-  findManyRecipients(page: number): Promise<Recipient[]>
-  save(recipient: Recipient): Promise<void>
+export abstract class RecipientsRepository {
+  abstract create(recipient: Recipient): Promise<void>
+  abstract findById(id: string): Promise<Recipient | null>
+  abstract findManyNearby(params: FindManyNearbyParams): Promise<Recipient[]>
+  abstract findManyRecipients(page: number): Promise<Recipient[]>
+  abstract save(recipient: Recipient): Promise<void>
 }
