@@ -4,12 +4,12 @@
 # @name create_account
 POST {{baseUrl}}/accounts
 Content-Type: application/json
+Authorization: Bearer {{authToken}}
 
 {
     "name": "admin",
-    "cpf":"123.456.789-02",
-    "email": "admin2@admin.com",
-    "role": "ADMIN",
+    "cpf":"123.456.789-04",
+    "email": "admin4@admin.com",
     "password": "123456"
 }
 
@@ -20,7 +20,7 @@ POST {{baseUrl}}/sessions
 Content-Type: application/json
 
 {
-    "cpf":"123.456.789-01",
+    "cpf":"123.456.789-02",
     "password": "123456"
 }
 

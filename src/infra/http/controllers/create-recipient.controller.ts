@@ -1,5 +1,6 @@
 import { RegisterRecipientUseCase } from "@/domain/carrier/application/use-cases/register-recipient"
-import { Public } from "@/infra/auth/public"
+import { Role } from "@/domain/carrier/enterprise/entities/courier"
+import { Roles } from "@/infra/auth/role"
 import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe"
 import {
   BadRequestException,
@@ -24,7 +25,7 @@ const createRecipientBodySchema = z.object({
 type CreateRecipientBodySchema = z.infer<typeof createRecipientBodySchema>
 
 @Controller("/recipients")
-@Public()
+@Roles(Role.ADMIN)
 export class CreateRecipientController {
   constructor(private registerRecipient: RegisterRecipientUseCase) {}
   @Post()
@@ -42,7 +43,7 @@ export class CreateRecipientController {
       latitude,
       longitude,
     })
-    
+
     if (result.isLeft()) {
       throw new BadRequestException()
     }

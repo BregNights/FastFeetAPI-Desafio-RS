@@ -1,6 +1,7 @@
 import { CourierAlreadyExistsError } from "@/domain/carrier/application/use-cases/errors/courier-already-exists-error"
 import { RegisterCourierUseCase } from "@/domain/carrier/application/use-cases/register-courier"
-import { Public } from "@/infra/auth/public"
+import { Role } from "@/domain/carrier/enterprise/entities/courier"
+import { Roles } from "@/infra/auth/role"
 import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe"
 import {
   BadRequestException,
@@ -23,7 +24,7 @@ const createUserBodySchema = z.object({
 type CreateUserBodySchema = z.infer<typeof createUserBodySchema>
 
 @Controller("/accounts")
-@Public()
+@Roles(Role.ADMIN)
 export class CreateAccountController {
   constructor(private registerCourier: RegisterCourierUseCase) {}
   @Post()
