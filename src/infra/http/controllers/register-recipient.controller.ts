@@ -12,7 +12,7 @@ import {
 } from "@nestjs/common"
 import { z } from "zod"
 
-const createRecipientBodySchema = z.object({
+const registerRecipientBodySchema = z.object({
   name: z.string(),
   cpf: z.string(),
   phone: z.string(),
@@ -22,16 +22,16 @@ const createRecipientBodySchema = z.object({
   longitude: z.number(),
 })
 
-type CreateRecipientBodySchema = z.infer<typeof createRecipientBodySchema>
+type RegisterRecipientBodySchema = z.infer<typeof registerRecipientBodySchema>
 
 @Controller("/recipients")
 @Roles(Role.ADMIN)
-export class CreateRecipientController {
+export class RegisterRecipientController {
   constructor(private registerRecipient: RegisterRecipientUseCase) {}
   @Post()
   @HttpCode(201)
-  @UsePipes(new ZodValidationPipe(createRecipientBodySchema))
-  async handle(@Body() body: CreateRecipientBodySchema) {
+  @UsePipes(new ZodValidationPipe(registerRecipientBodySchema))
+  async handle(@Body() body: RegisterRecipientBodySchema) {
     const { name, cpf, phone, email, address, latitude, longitude } = body
 
     const result = await this.registerRecipient.execute({

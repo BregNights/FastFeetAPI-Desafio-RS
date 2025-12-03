@@ -14,23 +14,23 @@ import {
 } from "@nestjs/common"
 import { z } from "zod"
 
-const createUserBodySchema = z.object({
+const registerUserBodySchema = z.object({
   name: z.string(),
   email: z.email(),
   cpf: z.string(),
   password: z.string(),
 })
 
-type CreateUserBodySchema = z.infer<typeof createUserBodySchema>
+type RegisterUserBodySchema = z.infer<typeof registerUserBodySchema>
 
 @Controller("/accounts")
 @Roles(Role.ADMIN)
-export class CreateAccountController {
+export class RegisterAccountController {
   constructor(private registerCourier: RegisterCourierUseCase) {}
   @Post()
   @HttpCode(201)
-  @UsePipes(new ZodValidationPipe(createUserBodySchema))
-  async handle(@Body() body: CreateUserBodySchema) {
+  @UsePipes(new ZodValidationPipe(registerUserBodySchema))
+  async handle(@Body() body: RegisterUserBodySchema) {
     const { name, email, cpf, password } = body
 
     const result = await this.registerCourier.execute({
