@@ -53,6 +53,6 @@ export class PrismaCouriersRepository implements CouriersRepository {
   async delete(courier: Courier): Promise<void> {
     const data = PrismaCourierMapper.toPrisma(courier)
 
-    await this.prisma.recipient.delete({ where: { id: data.id } })
+    await this.prisma.user.delete({ where: { id: data.id } })
   }
 }
