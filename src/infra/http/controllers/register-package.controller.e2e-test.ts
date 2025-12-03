@@ -49,7 +49,7 @@ describe("Create package (E2E)", () => {
 
     const packageOnDatabase = await prisma.package.findFirst({
       where: {
-        description: "Description",
+        id: response.body.id,
       },
     })
 

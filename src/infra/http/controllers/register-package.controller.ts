@@ -13,6 +13,7 @@ import {
   Post,
 } from "@nestjs/common"
 import { z } from "zod"
+import { PackagePresenter } from "../presenters/package-presenter"
 
 const registerPackageBodySchema = z.object({
   description: z.string(),
@@ -47,5 +48,7 @@ export class RegisterPackageController {
     if (result.isLeft()) {
       throw new BadRequestException()
     }
+
+    return PackagePresenter.toHTTP(result.value.pkg)
   }
 }
