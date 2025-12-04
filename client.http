@@ -86,3 +86,14 @@ Authorization: Bearer {{authToken}}
 }
 
 ###
+
+# @name edit_recipient
+PUT {{baseUrl}}/recipients/cdeae263-ce37-4577-90c0-a33dbe47f4ed
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "address": "new address"
+}
+
+###
