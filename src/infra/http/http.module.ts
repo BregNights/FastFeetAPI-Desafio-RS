@@ -2,6 +2,8 @@ import { AuthenticateCourierUseCase } from "@/domain/carrier/application/use-cas
 import { DeleteCourierUseCase } from "@/domain/carrier/application/use-cases/delete-courier"
 import { DeletePackageUseCase } from "@/domain/carrier/application/use-cases/delete-package"
 import { DeleteRecipientUseCase } from "@/domain/carrier/application/use-cases/delete-recipient"
+import { EditPackageUseCase } from "@/domain/carrier/application/use-cases/edit-package"
+import { EditPackageStatusUseCase } from "@/domain/carrier/application/use-cases/edit-package-status"
 import { RegisterCourierUseCase } from "@/domain/carrier/application/use-cases/register-courier"
 import { RegisterPackageUseCase } from "@/domain/carrier/application/use-cases/register-package"
 import { RegisterRecipientUseCase } from "@/domain/carrier/application/use-cases/register-recipient"
@@ -12,6 +14,8 @@ import { AuthenticateController } from "./controllers/authenticate.controller"
 import { DeleteAccountController } from "./controllers/delete-account.controller"
 import { DeletePackageController } from "./controllers/delete-package.controller"
 import { DeleteRecipientController } from "./controllers/delete-recipient.controller"
+import { EditPackageStatusController } from "./controllers/edit-package-status.controller"
+import { EditPackageController } from "./controllers/edit-package.controller"
 import { RegisterAccountController } from "./controllers/register-account.controller"
 import { RegisterPackageController } from "./controllers/register-package.controller"
 import { RegisterRecipientController } from "./controllers/register-recipient.controller"
@@ -26,6 +30,8 @@ import { RegisterRecipientController } from "./controllers/register-recipient.co
     DeleteAccountController,
     DeletePackageController,
     DeleteRecipientController,
+    EditPackageController,
+    EditPackageStatusController,
   ],
   providers: [
     RegisterCourierUseCase,
@@ -35,6 +41,8 @@ import { RegisterRecipientController } from "./controllers/register-recipient.co
     DeleteCourierUseCase,
     DeleteRecipientUseCase,
     DeletePackageUseCase,
+    EditPackageUseCase,
+    EditPackageStatusUseCase,
   ],
 })
 export class HttpModule {}

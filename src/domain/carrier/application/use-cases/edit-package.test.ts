@@ -24,6 +24,7 @@ describe("Edit Package", () => {
 
     await sut.execute({
       packageId: pkg.id.toString(),
+      courierId: "1",
       data: {
         description: "new description",
         status: PackageStatus.PICKED_UP,

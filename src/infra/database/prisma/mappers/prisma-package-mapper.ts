@@ -24,6 +24,7 @@ export class PrismaPackageMapper {
       id: pkg.id.toString(),
       courierId: pkg.courierId?.toString() ?? null,
       description: pkg.description ?? "",
+      status: pkg.status,
       recipientId: pkg.recipientId.toString(),
       trackingCode: pkg.trackingCode,
       createdAt: pkg.createdAt,

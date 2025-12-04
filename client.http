@@ -62,3 +62,27 @@ Authorization: Bearer {{authToken}}
 {}
 
 ###
+
+# @name edit_package
+PUT {{baseUrl}}/packages/2d6266c0-ea82-464e-b78b-19c16b4ebe67
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "courierId": "0b34ac02-4c0c-44f9-a7f2-ced2e52e01d8",
+    "description": "new description",
+    "status":"PICKED_UP"
+}
+
+###
+
+# @name edit_package_status
+PUT {{baseUrl}}/packages/2d6266c0-ea82-464e-b78b-19c16b4ebe67/status
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "status":"PICKED_UP"
+}
+
+###

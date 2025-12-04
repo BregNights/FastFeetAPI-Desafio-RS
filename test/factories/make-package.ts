@@ -14,7 +14,7 @@ export function makePackage(
 ) {
   const pkg = Package.create(
     {
-      courierId: new UniqueEntityID(),
+      
       description: faker.lorem.text(),
       recipientId: new UniqueEntityID(),
       ...override,
