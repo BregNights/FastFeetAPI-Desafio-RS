@@ -11,7 +11,7 @@ import { PackageFactory } from "test/factories/make-package"
 import { RecipientFactory } from "test/factories/make-recipient"
 import { DatabaseModule } from "../../database/database.module"
 
-describe("Edit package (E2E)", () => {
+describe("Edit package status (E2E)", () => {
   let app: INestApplication
   let prisma: PrismaService
   let courierFactory: CourierFactory
@@ -36,9 +36,9 @@ describe("Edit package (E2E)", () => {
   })
 
   it("[PATCH] /packages/:packageId/status", async () => {
-    const user = await courierFactory.makePrismaCourier()
+    const userAdmin = await courierFactory.makePrismaCourier()
     const accessToken = jwt.sign({
-      sub: user.id.toString(),
+      sub: userAdmin.id.toString(),
       role: Role.COURIER,
     })
 

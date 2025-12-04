@@ -8,7 +8,7 @@ import request from "supertest"
 import { CourierFactory } from "test/factories/make-courier"
 import { DatabaseModule } from "../../database/database.module"
 
-describe("Create account (E2E)", () => {
+describe("Register account (E2E)", () => {
   let app: INestApplication
   let prisma: PrismaService
   let courierFactory: CourierFactory
@@ -29,8 +29,11 @@ describe("Create account (E2E)", () => {
   })
 
   it("[POST] /accounts", async () => {
-    const user = await courierFactory.makePrismaCourier()
-    const accessToken = jwt.sign({ sub: user.id.toString(), role: Role.ADMIN })
+    const userAdmin = await courierFactory.makePrismaCourier()
+    const accessToken = jwt.sign({
+      sub: userAdmin.id.toString(),
+      role: Role.ADMIN,
+    })
 
     const response = await request(app.getHttpServer())
       .post("/accounts")
@@ -44,7 +47,7 @@ describe("Create account (E2E)", () => {
 
     expect(response.statusCode).toBe(201)
 
-    const userOnDatabase = await prisma.user.findUnique({
+    const userOnDatabase = await prisma.user.findFirst({
       where: {
         email: "johndoe@example.com",
       },

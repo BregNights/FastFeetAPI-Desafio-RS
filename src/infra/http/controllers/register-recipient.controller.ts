@@ -19,8 +19,12 @@ const registerRecipientBodySchema = z.object({
   phone: z.string(),
   email: z.email(),
   address: z.string(),
-  latitude: z.number(),
-  longitude: z.number(),
+  latitude: z.number().refine((value) => {
+    return Math.abs(value) <= 90
+  }),
+  longitude: z.number().refine((value) => {
+    return Math.abs(value) <= 180
+  }),
 })
 
 type RegisterRecipientBodySchema = z.infer<typeof registerRecipientBodySchema>

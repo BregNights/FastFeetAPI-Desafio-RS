@@ -36,8 +36,11 @@ describe("Edit package (E2E)", () => {
   })
 
   it("[PUT] /packages/:packageId", async () => {
-    const user = await courierFactory.makePrismaCourier()
-    const accessToken = jwt.sign({ sub: user.id.toString(), role: Role.ADMIN })
+    const userAdmin = await courierFactory.makePrismaCourier()
+    const accessToken = jwt.sign({
+      sub: userAdmin.id.toString(),
+      role: Role.ADMIN,
+    })
 
     const recipient = await recipientFactory.makePrismaRecipient({})
 
@@ -52,20 +55,21 @@ describe("Edit package (E2E)", () => {
       .put(`/packages/${pkgId}`)
       .set("Authorization", `Bearer ${accessToken}`)
       .send({
-        courierId: user.id.toString(),
+        courierId: userAdmin.id.toString(),
         description: "New package of packages",
         status: PackageStatus.PICKED_UP,
       })
 
     expect(response.statusCode).toBe(204)
 
-    const packageOnDatabase = await prisma.package.findFirst({
+    const packageOnDatabase = await prisma.package.findUnique({
       where: {
         id: pkgId,
-        description: "New package of packages",
       },
     })
 
-    expect(packageOnDatabase).toBeTruthy()
+    expect(packageOnDatabase).toEqual(
+      expect.objectContaining({ description: "New package of packages" })
+    )
   })
 })

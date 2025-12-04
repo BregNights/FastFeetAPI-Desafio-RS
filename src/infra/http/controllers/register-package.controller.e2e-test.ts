@@ -9,7 +9,7 @@ import { CourierFactory } from "test/factories/make-courier"
 import { RecipientFactory } from "test/factories/make-recipient"
 import { DatabaseModule } from "../../database/database.module"
 
-describe("Create package (E2E)", () => {
+describe("Register package (E2E)", () => {
   let app: INestApplication
   let prisma: PrismaService
   let courierFactory: CourierFactory
@@ -32,8 +32,11 @@ describe("Create package (E2E)", () => {
   })
 
   it("[POST] /packages", async () => {
-    const user = await courierFactory.makePrismaCourier()
-    const accessToken = jwt.sign({ sub: user.id.toString(), role: Role.ADMIN })
+    const userAdmin = await courierFactory.makePrismaCourier()
+    const accessToken = jwt.sign({
+      sub: userAdmin.id.toString(),
+      role: Role.ADMIN,
+    })
 
     const recipient = await recipientFactory.makePrismaRecipient({})
     const recipientId = recipient.id.toString()
