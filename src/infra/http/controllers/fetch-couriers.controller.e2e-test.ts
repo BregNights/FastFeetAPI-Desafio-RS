@@ -5,27 +5,21 @@ import { JwtService } from "@nestjs/jwt"
 import { Test } from "@nestjs/testing"
 import request from "supertest"
 import { CourierFactory } from "test/factories/make-courier"
-import { PackageFactory } from "test/factories/make-package"
-import { RecipientFactory } from "test/factories/make-recipient"
 import { DatabaseModule } from "../../database/database.module"
 
 describe("Fetch couriers (E2E)", () => {
   let app: INestApplication
   let courierFactory: CourierFactory
-  let packageFactory: PackageFactory
-  let recipientFactory: RecipientFactory
   let jwt: JwtService
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [CourierFactory, PackageFactory, RecipientFactory],
+      providers: [CourierFactory],
     }).compile()
 
     app = moduleRef.createNestApplication()
     courierFactory = moduleRef.get(CourierFactory)
-    packageFactory = moduleRef.get(PackageFactory)
-    recipientFactory = moduleRef.get(RecipientFactory)
     jwt = moduleRef.get(JwtService)
 
     await app.init()
