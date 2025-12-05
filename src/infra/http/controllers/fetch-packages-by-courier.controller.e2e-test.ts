@@ -39,35 +39,36 @@ describe("Fetch packages (E2E)", () => {
     })
     const courierId = courier.id.toString()
 
-    const recipient = await recipientFactory.makePrismaRecipient()
+    const recipient1 = await recipientFactory.makePrismaRecipient()
+    await packageFactory.makePrismaPackage({
+      courierId: courier.id,
+      recipientId: recipient1.id,
+    })
 
-    Promise.all([
-      packageFactory.makePrismaPackage({
-        courierId: courier.id,
-        recipientId: recipient.id,
-      }),
-      packageFactory.makePrismaPackage({
-        courierId: courier.id,
-        recipientId: recipient.id,
-      }),
-    ])
+    const recipient2 = await recipientFactory.makePrismaRecipient()
+    await packageFactory.makePrismaPackage({
+      courierId: courier.id,
+      recipientId: recipient2.id,
+    })
 
     const response = await request(app.getHttpServer())
       .get(`/packages/${courierId}`)
       .set("Authorization", `Bearer ${accessToken}`)
       .send()
 
+    console.log(response.body)
+
     expect(response.statusCode).toBe(200)
 
     expect(response.body).toEqual({
       package: expect.arrayContaining([
         expect.objectContaining({
-          courierId: courier.id.toString(),
-          recipientId: recipient.id.toString(),
+          recipientName: recipient1.name,
+          recipientAddress: recipient1.address,
         }),
         expect.objectContaining({
-          courierId: courier.id.toString(),
-          recipientId: recipient.id.toString(),
+          recipientName: recipient2.name,
+          recipientAddress: recipient2.address,
         }),
       ]),
     })
