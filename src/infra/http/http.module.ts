@@ -6,6 +6,7 @@ import { EditCourierUseCase } from "@/domain/carrier/application/use-cases/edit-
 import { EditPackageUseCase } from "@/domain/carrier/application/use-cases/edit-package"
 import { EditPackageStatusUseCase } from "@/domain/carrier/application/use-cases/edit-package-status"
 import { EditRecipientUseCase } from "@/domain/carrier/application/use-cases/edit-recipient"
+import { FetchPackagesUseCase } from "@/domain/carrier/application/use-cases/fetch-packages"
 import { RegisterCourierUseCase } from "@/domain/carrier/application/use-cases/register-courier"
 import { RegisterPackageUseCase } from "@/domain/carrier/application/use-cases/register-package"
 import { RegisterRecipientUseCase } from "@/domain/carrier/application/use-cases/register-recipient"
@@ -20,6 +21,7 @@ import { EditCourierController } from "./controllers/edit-courier.controller"
 import { EditPackageStatusController } from "./controllers/edit-package-status.controller"
 import { EditPackageController } from "./controllers/edit-package.controller"
 import { EditRecipientController } from "./controllers/edit-recipient.controller"
+import { FetchPackagesController } from "./controllers/fetch-packages.controller"
 import { RegisterAccountController } from "./controllers/register-account.controller"
 import { RegisterPackageController } from "./controllers/register-package.controller"
 import { RegisterRecipientController } from "./controllers/register-recipient.controller"
@@ -38,6 +40,7 @@ import { RegisterRecipientController } from "./controllers/register-recipient.co
     EditPackageStatusController,
     EditCourierController,
     EditRecipientController,
+    FetchPackagesController,
   ],
   providers: [
     RegisterCourierUseCase,
@@ -51,6 +54,7 @@ import { RegisterRecipientController } from "./controllers/register-recipient.co
     EditPackageStatusUseCase,
     EditCourierUseCase,
     EditRecipientUseCase,
+    FetchPackagesUseCase,
   ],
 })
 export class HttpModule {}

@@ -52,10 +52,23 @@ export class InMemoryPackagesRepository implements PackagesRepository {
     })
   }
 
-  async findManyPackages(page: number): Promise<Package[]> {
-    const pkg = this.items.slice((page - 1) * 20, page * 20)
+  async findManyPackages(packageId: string, page: number): Promise<Package[]> {
+    const pkgs = this.items
+      .filter((item) => item.id.toString() === packageId)
+      .slice((page - 1) * 20, page * 20)
 
-    return pkg
+    return pkgs
+  }
+
+  async findManyPackagesByCourierId(
+    courierId: string,
+    page: number
+  ): Promise<Package[]> {
+    const pkgs = this.items
+      .filter((item) => item.courierId?.toString() === courierId)
+      .slice((page - 1) * 20, page * 20)
+
+    return pkgs
   }
 
   async save(pkg: Package): Promise<void> {

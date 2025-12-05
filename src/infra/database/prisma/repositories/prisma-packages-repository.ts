@@ -31,10 +31,29 @@ export class PrismaPackagesRepository implements PackagesRepository {
     return pkg ? PrismaPackageDetailsMapper.toDomain(pkg) : null
   }
 
-  async findManyPackages(page: number): Promise<Package[]> {
+  async findManyPackages(PackageId: string, page: number): Promise<Package[]> {
     const packages = await this.prisma.package.findMany({
+      where: { recipientId: PackageId },
       take: 20,
       skip: (page - 1) * 20,
+    })
+
+    return packages.map(PrismaPackageMapper.toDomain)
+  }
+
+  async findManyPackagesByCourierId(
+    courierId: string,
+    page: number
+  ): Promise<Package[]> {
+    const packages = await this.prisma.package.findMany({
+      where: {
+        courierId,
+      },
+      take: 20,
+      skip: (page - 1) * 20,
+      orderBy: {
+        createdAt: "desc",
+      },
     })
 
     return packages.map(PrismaPackageMapper.toDomain)

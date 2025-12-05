@@ -1,16 +1,21 @@
-import { Either, right } from "@/core/either"
+import { Either, left, right } from "@/core/either"
+import { NotAllowedError } from "@/core/errors/not-allowed-error"
 import { Injectable } from "@nestjs/common"
+import { Role } from "../../enterprise/entities/courier"
 import { Package } from "../../enterprise/entities/package"
 import { PackagesRepository } from "../repositories/packages-repository"
 
 interface FetchPackageUseCaseRequest {
+  courierId: string
   page: number
+  requesterId: string
+  requesterRole: string
 }
 
 type FetchPackageUseCaseResponse = Either<
-  null,
+  NotAllowedError,
   {
-    pkg: Package[]
+    pkgs: Package[]
   }
 >
 
@@ -19,10 +24,20 @@ export class FetchPackagesUseCase {
   constructor(private packagesRepository: PackagesRepository) {}
 
   async execute({
+    courierId,
     page,
+    requesterId,
+    requesterRole,
   }: FetchPackageUseCaseRequest): Promise<FetchPackageUseCaseResponse> {
-    const pkg = await this.packagesRepository.findManyPackages(page)
+    if (requesterRole !== Role.ADMIN && requesterId !== courierId) {
+      return left(new NotAllowedError())
+    }
 
-    return right({ pkg })
+    const pkgs = await this.packagesRepository.findManyPackagesByCourierId(
+      courierId,
+      page
+    )
+
+    return right({ pkgs })
   }
 }
