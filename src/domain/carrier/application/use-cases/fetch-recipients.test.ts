@@ -21,7 +21,7 @@ describe("Fetch Recipient Use Case", () => {
       page: 1,
     })
 
-    expect(result.value?.recipient).toHaveLength(20)
+    expect(result.value?.recipients).toHaveLength(20)
   })
 
   it("should be able to fetch paginated recipient", async () => {
@@ -34,6 +34,6 @@ describe("Fetch Recipient Use Case", () => {
       page: 2,
     })
 
-    expect(result.value?.recipient).toHaveLength(2)
+    expect(result.value?.recipients).toHaveLength(2)
   })
 })

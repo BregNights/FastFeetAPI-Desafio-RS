@@ -10,7 +10,7 @@ interface FetchRecipientUseCaseRequest {
 type FetchRecipientUseCaseResponse = Either<
   null,
   {
-    recipient: Recipient[]
+    recipients: Recipient[]
   }
 >
 
@@ -21,8 +21,8 @@ export class FetchRecipientsUseCase {
   async execute({
     page,
   }: FetchRecipientUseCaseRequest): Promise<FetchRecipientUseCaseResponse> {
-    const recipient = await this.recipientsRepository.findManyRecipients(page)
+    const recipients = await this.recipientsRepository.findManyRecipients(page)
 
-    return right({ recipient })
+    return right({ recipients })
   }
 }
