@@ -2,7 +2,7 @@ import { Either, left, right } from "@/core/either"
 import { NotAllowedError } from "@/core/errors/not-allowed-error"
 import { Injectable } from "@nestjs/common"
 import { Role } from "../../enterprise/entities/courier"
-import { Package } from "../../enterprise/entities/package"
+import { PackageDetails } from "../../enterprise/entities/value-objects/package-details"
 import { PackagesRepository } from "../repositories/packages-repository"
 
 interface FetchPackageUseCaseRequest {
@@ -15,7 +15,7 @@ interface FetchPackageUseCaseRequest {
 type FetchPackageUseCaseResponse = Either<
   NotAllowedError,
   {
-    pkgs: Package[]
+    pkgs: PackageDetails[]
   }
 >
 
