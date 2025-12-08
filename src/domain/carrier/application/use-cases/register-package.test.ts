@@ -3,19 +3,21 @@ import { InMemoryPackagesRepository } from "test/repositories/in-memory-packages
 import { InMemoryRecipientsRepository } from "test/repositories/in-memory-recipients-repository"
 import { RegisterPackageUseCase } from "./register-package"
 
-let inMemoryPackagesRepository: InMemoryPackagesRepository
-let inMemoryRecipientsRepository: InMemoryRecipientsRepository
 let inMemoryCouriersRepository: InMemoryCouriersRepository
-
+let inMemoryRecipientsRepository: InMemoryRecipientsRepository
+let inMemoryPackagesRepository: InMemoryPackagesRepository
 let sut: RegisterPackageUseCase
 
 describe("Create Package", () => {
   beforeEach(() => {
-    inMemoryRecipientsRepository = new InMemoryRecipientsRepository()
     inMemoryCouriersRepository = new InMemoryCouriersRepository()
+    inMemoryRecipientsRepository = new InMemoryRecipientsRepository(
+      inMemoryCouriersRepository,
+      inMemoryPackagesRepository
+    )
     inMemoryPackagesRepository = new InMemoryPackagesRepository(
-      inMemoryRecipientsRepository,
-      inMemoryCouriersRepository
+      inMemoryCouriersRepository,
+      inMemoryRecipientsRepository
     )
     sut = new RegisterPackageUseCase(inMemoryPackagesRepository)
   })

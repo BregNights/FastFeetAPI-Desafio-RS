@@ -9,18 +9,21 @@ import { DeliveredWithoutPickedup } from "./errors/delivered-without-pickedup-er
 import { NotThePickupCourierError } from "./errors/not-pickup-courier-error"
 
 let inMemoryCouriersRepository: InMemoryCouriersRepository
-let inMemoryPackagesRepository: InMemoryPackagesRepository
 let inMemoryRecipientsRepository: InMemoryRecipientsRepository
+let inMemoryPackagesRepository: InMemoryPackagesRepository
 let sut: EditPackageStatusUseCase
 
 describe("Update status package", () => {
   beforeEach(() => {
-    inMemoryRecipientsRepository = new InMemoryRecipientsRepository()
-    inMemoryPackagesRepository = new InMemoryPackagesRepository(
-      inMemoryRecipientsRepository,
-      inMemoryCouriersRepository
-    )
     inMemoryCouriersRepository = new InMemoryCouriersRepository()
+    inMemoryRecipientsRepository = new InMemoryRecipientsRepository(
+      inMemoryCouriersRepository,
+      inMemoryPackagesRepository
+    )
+    inMemoryPackagesRepository = new InMemoryPackagesRepository(
+      inMemoryCouriersRepository,
+      inMemoryRecipientsRepository
+    )
     sut = new EditPackageStatusUseCase(
       inMemoryPackagesRepository,
       inMemoryCouriersRepository

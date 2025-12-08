@@ -5,18 +5,21 @@ import { InMemoryRecipientsRepository } from "test/repositories/in-memory-recipi
 import { PackageStatus } from "../../enterprise/entities/package"
 import { EditPackageUseCase } from "./edit-package"
 
-let inMemoryPackagesRepository: InMemoryPackagesRepository
 let inMemoryCouriersRepository: InMemoryCouriersRepository
 let inMemoryRecipientsRepository: InMemoryRecipientsRepository
+let inMemoryPackagesRepository: InMemoryPackagesRepository
 let sut: EditPackageUseCase
 
 describe("Edit Package", () => {
   beforeEach(() => {
-    inMemoryRecipientsRepository = new InMemoryRecipientsRepository()
     inMemoryCouriersRepository = new InMemoryCouriersRepository()
+    inMemoryRecipientsRepository = new InMemoryRecipientsRepository(
+      inMemoryCouriersRepository,
+      inMemoryPackagesRepository
+    )
     inMemoryPackagesRepository = new InMemoryPackagesRepository(
-      inMemoryRecipientsRepository,
-      inMemoryCouriersRepository
+      inMemoryCouriersRepository,
+      inMemoryRecipientsRepository
     )
     sut = new EditPackageUseCase(inMemoryPackagesRepository)
   })

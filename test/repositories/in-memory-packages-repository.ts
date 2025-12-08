@@ -7,8 +7,8 @@ import { InMemoryRecipientsRepository } from "./in-memory-recipients-repository"
 
 export class InMemoryPackagesRepository implements PackagesRepository {
   constructor(
-    private recipientsRepository: InMemoryRecipientsRepository,
-    private couriersRepository: InMemoryCouriersRepository
+    private couriersRepository: InMemoryCouriersRepository,
+    private recipientsRepository: InMemoryRecipientsRepository
   ) {}
 
   public items: Package[] = []

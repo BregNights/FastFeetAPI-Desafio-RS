@@ -1,13 +1,25 @@
 import { makeRecipient } from "test/factories/make-recipient"
+import { InMemoryCouriersRepository } from "test/repositories/in-memory-couriers-repository"
+import { InMemoryPackagesRepository } from "test/repositories/in-memory-packages-repository"
 import { InMemoryRecipientsRepository } from "test/repositories/in-memory-recipients-repository"
 import { DeleteRecipientUseCase } from "./delete-recipient"
 
+let inMemoryCouriersRepository: InMemoryCouriersRepository
 let inMemoryRecipientsRepository: InMemoryRecipientsRepository
+let inMemoryPackagesRepository: InMemoryPackagesRepository
 let sut: DeleteRecipientUseCase
 
 describe("Delete Recipient", () => {
   beforeEach(() => {
-    inMemoryRecipientsRepository = new InMemoryRecipientsRepository()
+    inMemoryCouriersRepository = new InMemoryCouriersRepository()
+    inMemoryRecipientsRepository = new InMemoryRecipientsRepository(
+      inMemoryCouriersRepository,
+      inMemoryPackagesRepository
+    )
+    inMemoryPackagesRepository = new InMemoryPackagesRepository(
+      inMemoryCouriersRepository,
+      inMemoryRecipientsRepository
+    )
     sut = new DeleteRecipientUseCase(inMemoryRecipientsRepository)
   })
 

@@ -9,18 +9,21 @@ import { Role } from "../../enterprise/entities/courier"
 import { PackageStatus } from "../../enterprise/entities/package"
 import { FetchPackagesByCourierUseCase } from "./fetch-packages-by-courier"
 
-let inMemoryPackagesRepository: InMemoryPackagesRepository
 let inMemoryCouriersRepository: InMemoryCouriersRepository
 let inMemoryRecipientsRepository: InMemoryRecipientsRepository
+let inMemoryPackagesRepository: InMemoryPackagesRepository
 let sut: FetchPackagesByCourierUseCase
 
 describe("Fetch Packages by Courier Use Case", () => {
   beforeEach(() => {
-    inMemoryRecipientsRepository = new InMemoryRecipientsRepository()
     inMemoryCouriersRepository = new InMemoryCouriersRepository()
+    inMemoryRecipientsRepository = new InMemoryRecipientsRepository(
+      inMemoryCouriersRepository,
+      inMemoryPackagesRepository
+    )
     inMemoryPackagesRepository = new InMemoryPackagesRepository(
-      inMemoryRecipientsRepository,
-      inMemoryCouriersRepository
+      inMemoryCouriersRepository,
+      inMemoryRecipientsRepository
     )
     sut = new FetchPackagesByCourierUseCase(inMemoryPackagesRepository)
   })

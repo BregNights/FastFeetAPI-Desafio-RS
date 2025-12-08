@@ -1,12 +1,24 @@
+import { InMemoryCouriersRepository } from "test/repositories/in-memory-couriers-repository"
+import { InMemoryPackagesRepository } from "test/repositories/in-memory-packages-repository"
 import { InMemoryRecipientsRepository } from "test/repositories/in-memory-recipients-repository"
 import { RegisterRecipientUseCase } from "./register-recipient"
 
+let inMemoryCouriersRepository: InMemoryCouriersRepository
 let inMemoryRecipientsRepository: InMemoryRecipientsRepository
+let inMemoryPackagesRepository: InMemoryPackagesRepository
 let sut: RegisterRecipientUseCase
 
 describe("Create Recipient", () => {
   beforeEach(() => {
-    inMemoryRecipientsRepository = new InMemoryRecipientsRepository()
+    inMemoryCouriersRepository = new InMemoryCouriersRepository()
+    inMemoryRecipientsRepository = new InMemoryRecipientsRepository(
+      inMemoryCouriersRepository,
+      inMemoryPackagesRepository
+    )
+    inMemoryPackagesRepository = new InMemoryPackagesRepository(
+      inMemoryCouriersRepository,
+      inMemoryRecipientsRepository
+    )
     sut = new RegisterRecipientUseCase(inMemoryRecipientsRepository)
   })
 
