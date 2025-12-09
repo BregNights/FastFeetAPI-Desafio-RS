@@ -5,6 +5,7 @@ import { Injectable } from "@nestjs/common"
 import { PrismaPackageDetailsMapper } from "../mappers/prisma-package-details-mapper"
 import { PrismaPackageMapper } from "../mappers/prisma-package-mapper"
 import { PrismaService } from "../prisma.service"
+import { DomainEvents } from "@/core/events/domain-events"
 
 @Injectable()
 export class PrismaPackagesRepository implements PackagesRepository {
@@ -64,6 +65,8 @@ export class PrismaPackagesRepository implements PackagesRepository {
     const data = PrismaPackageMapper.toPrisma(pkg)
 
     await this.prisma.package.update({ where: { id: data.id }, data })
+
+    DomainEvents.dispatchEventsForAggregate(pkg.id)
   }
 
   async delete(pkg: Package): Promise<void> {
