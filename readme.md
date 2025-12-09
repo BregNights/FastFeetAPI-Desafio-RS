@@ -1,10 +1,11 @@
 # FastFeetAPI
 A FastFeetAPI é uma API desenvolvida para simular o funcionamento de uma transportadora, permitindo o gerenciamento completo de destinatários (recipients), transportadores (couriers) e pacotes (packages).
 O objetivo principal deste projeto é aperfeiçoar habilidades com NestJS, arquitetura limpa, Domain-Driven Design, autenticação JWT e práticas modernas de desenvolvimento backend.
+
 O projeto foi estruturado de forma didática, com foco em clareza, boas práticas e organização, facilitando tanto o aprendizado quanto a evolução contínua.
 
 
-Principais Funcionalidades
+## Principais Funcionalidades
 A API permite gerenciar todo o fluxo operacional de uma transportadora (assim espero...):
 
 
